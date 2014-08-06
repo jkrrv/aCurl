@@ -121,13 +121,19 @@
 		} 
 		*/ 
 		
+		curl_setopt($s, CURLOPT_RETURNTRANSFER,1);
 		curl_setopt($s,CURLOPT_USERAGENT,$this->_useragent); 
 		curl_setopt($s,CURLOPT_REFERER,$this->_referer); 
 
-		$this->_webpage = curl_exec($s); 
-		$this->_status = curl_getinfo($s,CURLINFO_HTTP_CODE); 
-		$this->_info = curl_getinfo($s); // Kurtz addition
-		curl_close($s); 
+		$this->_webpage = curl_exec($s);
+        	if ($this->_webpage===false) {
+        	    trigger_error("cURL failed.  Attempting with file_get_contents.", E_USER_WARNING);  // Kurtz addition, in case cURL isn't cooperating.
+        	    $this->_webpage = file_get_contents($this->_url);
+        	} else {
+		    $this->_status = curl_getinfo($s,CURLINFO_HTTP_CODE);
+		    $this->_info = curl_getinfo($s); // Kurtz addition
+        	}
+        	curl_close($s);
 	} 
 
 	public function getHttpStatus() { 
