@@ -2,7 +2,7 @@
 define('HAS_ACURL_VERSION',1.1);
 
  class aCurl { 
-	protected $_useragent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.117 Safari/537.36'; 
+	protected $_useragent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.117 Safari/537.36';
 	protected $_url; 
 	protected $_followlocation; 
 	protected $_timeout; 
@@ -23,7 +23,7 @@ define('HAS_ACURL_VERSION',1.1);
 	public    $auth_name = ''; 
 	public    $auth_pass = ''; 
 
-	public function useAuth($use){ 
+	public function useAuth($use = true){
 		$this->authentication = 0; 
 		if($use == true) $this->authentication = 1; 
 	} 
@@ -35,24 +35,24 @@ define('HAS_ACURL_VERSION',1.1);
 		$this->auth_pass = $pass; 
 	} 
 
-	public function __construct($url,$followlocation = true,$timeOut = 10,$maxRedirecs = 4,$includeHeader = true,$noBody = false) 
+	public function __construct($url,$followlocation = true,$timeOut = 10,$maxRedirects = 4,$includeHeader = true,$noBody = false)
 	{ 
 		$this->_url = $url; 
 		$this->_followlocation = $followlocation; 
 		$this->_timeout = $timeOut; 
-		$this->_maxRedirects = $maxRedirecs; 
+		$this->_maxRedirects = $maxRedirects;
 		$this->_noBody = $noBody; 
 		$this->_includeHeader = $includeHeader; 
 
 		$this->_cookieFileLocation = dirname(__FILE__).'/cookie.txt'; 
 	} 
 	
-	public function includeHeader($something) { // Kurtz addition
-		$this->_includeHeader=$something;
+	public function includeHeader($header) { // Kurtz addition
+		$this->_includeHeader = $header;
 	}
 	
-	public function maxRedirects($something) { // Kurtz addition
-		$this->_maxRedirects=$something;
+	public function maxRedirects($numberOfRedirs) { // Kurtz addition
+		$this->_maxRedirects = $numberOfRedirs;
 	}
 
 	public function setReferer($referer){ 
