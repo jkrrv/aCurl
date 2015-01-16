@@ -10,7 +10,8 @@ define('HAS_ACURL_VERSION',1.1);
 	protected $_cookieFileLocation = './cookie.txt'; 
 	protected $_post; 
 	protected $_postFields; 
-	protected $_referer =""; 
+	protected $_referer ="";
+	protected $_requestHeaders = array('Accept:');
 
 	protected $_session; 
 	protected $_webpage; 
@@ -35,7 +36,7 @@ define('HAS_ACURL_VERSION',1.1);
 		$this->auth_pass = $pass; 
 	} 
 
-	public function __construct($url,$followlocation = true,$timeOut = 10,$maxRedirects = 4,$includeHeader = true,$noBody = false)
+	public function __construct($url, $followlocation = true,$timeOut = 10,$maxRedirects = 4,$includeHeader = true,$noBody = false)
 	{ 
 		$this->_url = $url; 
 		$this->_followlocation = $followlocation; 
@@ -49,6 +50,10 @@ define('HAS_ACURL_VERSION',1.1);
 	
 	public function includeHeader($header) { // Kurtz addition
 		$this->_includeHeader = $header;
+	}
+
+	public function addRequestHeader($header) {
+		$this->_requestHeaders[] = $header;
 	}
 	
 	public function maxRedirects($numberOfRedirs) { // Kurtz addition
@@ -84,7 +89,7 @@ define('HAS_ACURL_VERSION',1.1);
 		$s = curl_init(); 
 
 		curl_setopt($s,CURLOPT_URL,$this->_url); 
-		curl_setopt($s,CURLOPT_HTTPHEADER,array('Accept:'));
+		curl_setopt($s,CURLOPT_HTTPHEADER,$this->_requestHeaders);
 		curl_setopt($s,CURLOPT_TIMEOUT,$this->_timeout); 
 		curl_setopt($s,CURLOPT_MAXREDIRS,$this->_maxRedirects); 
 		curl_setopt($s,CURLOPT_RETURNTRANSFER,1); 
