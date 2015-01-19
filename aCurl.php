@@ -48,7 +48,7 @@ define('HAS_ACURL_VERSION',1.1);
 		$this->_cookieFileLocation = dirname(__FILE__).'/cookie.txt'; 
 	} 
 	
-	public function includeHeader($header) { // Kurtz addition
+	public function includeHeader($header) {
 		$this->_includeHeader = $header;
 	}
 
@@ -56,7 +56,7 @@ define('HAS_ACURL_VERSION',1.1);
 		$this->_requestHeaders[] = $header;
 	}
 	
-	public function maxRedirects($numberOfRedirs) { // Kurtz addition
+	public function maxRedirects($numberOfRedirs) {
 		$this->_maxRedirects = $numberOfRedirs;
 	}
 
@@ -134,11 +134,11 @@ define('HAS_ACURL_VERSION',1.1);
 
 		$this->_webpage = curl_exec($s);
         	if ($this->_webpage===false) {
-        	    trigger_error("cURL failed.  Attempting with file_get_contents.", E_USER_WARNING);  // Kurtz addition, in case cURL isn't cooperating.
+        	    trigger_error("cURL failed.  Attempting with file_get_contents.", E_USER_WARNING);  // in case cURL isn't cooperating.
         	    $this->_webpage = file_get_contents($this->_url);
         	} else {
 		    $this->_status = curl_getinfo($s,CURLINFO_HTTP_CODE);
-		    $this->_info = curl_getinfo($s); // Kurtz addition
+		    $this->_info = curl_getinfo($s);
         	}
         	curl_close($s);
 	} 
@@ -147,7 +147,7 @@ define('HAS_ACURL_VERSION',1.1);
 		return $this->_status; 
 	} 
 	
-	public function getInfo() {  // Kurtz addition.  See http://www.php.net/manual/en/function.curl-getinfo.php#refsect1-function.curl-getinfo-returnvalues for the array that is returned. 
+	public function getInfo() {  //  See http://www.php.net/manual/en/function.curl-getinfo.php#refsect1-function.curl-getinfo-returnvalues for the array that is returned.
 		return $this->_info; 
 	} 
 
