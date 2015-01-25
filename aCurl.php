@@ -154,5 +154,5 @@ define('HAS_ACURL_VERSION',1.1);
 	public function __tostring(){ 
 		return (string) $this->_webpage; 
 	} 
-} 
-?>
+}
+
