@@ -36,7 +36,7 @@ define('HAS_ACURL_VERSION',1.1);
 		$this->auth_pass = $pass; 
 	} 
 
-	public function __construct($url, $followlocation = true,$timeOut = 10,$maxRedirects = 4,$includeHeader = true,$noBody = false)
+	public function __construct($url, $followlocation = true,$timeOut = 10,$maxRedirects = 4,$includeHeader = false, $noBody = false)
 	{ 
 		$this->_url = $url; 
 		$this->_followlocation = $followlocation; 
@@ -48,7 +48,7 @@ define('HAS_ACURL_VERSION',1.1);
 		$this->_cookieFileLocation = dirname(__FILE__).'/cookie.txt'; 
 	} 
 	
-	public function includeHeader($header) {
+	public function includeHeader($header = true) {
 		$this->_includeHeader = $header;
 	}
 
