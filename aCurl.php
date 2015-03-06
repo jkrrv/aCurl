@@ -12,6 +12,7 @@ define('HAS_ACURL_VERSION',1.1);
 	protected $_postFields; 
 	protected $_referer ="";
 	protected $_requestHeaders = array('Accept:');
+	protected $_requireContent = true;
 
 	protected $_session; 
 	protected $_webpage; 
@@ -19,7 +20,7 @@ define('HAS_ACURL_VERSION',1.1);
 	protected $_noBody; 
 	protected $_status; 
 	protected $_info; 
-	protected $_binaryTransfer; 
+	protected $_binaryTransfer;
 	public    $authentication = 0; 
 	public    $auth_name = ''; 
 	public    $auth_pass = ''; 
@@ -73,9 +74,14 @@ define('HAS_ACURL_VERSION',1.1);
 	{ 
 		$this->_post = true; 
 		$this->_postFields = $postFields; 
-	} 
+	}
 
-	public function setUserAgent($userAgent) 
+	 public function requireContent($requireContent = true)
+	 {
+		 $this->_requireContent = $requireContent;
+	 }
+
+	 public function setUserAgent($userAgent)
 	{ 
 		$this->_useragent = $userAgent; 
 	} 
@@ -133,7 +139,7 @@ define('HAS_ACURL_VERSION',1.1);
 		curl_setopt($s,CURLOPT_REFERER,$this->_referer); 
 
 		$this->_webpage = curl_exec($s);
-        	if ($this->_webpage===false) {
+        	if ($this->_webpage===false && $this->_requireContent) {
         	    trigger_error("cURL failed.  Attempting with file_get_contents.", E_USER_WARNING);  // in case cURL isn't cooperating.
         	    $this->_webpage = file_get_contents($this->_url);
         	} else {
