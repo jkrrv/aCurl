@@ -13,6 +13,7 @@ define('HAS_ACURL_VERSION',1.1);
 	protected $_referer ="";
 	protected $_requestHeaders = array('Accept:');
 	protected $_requireContent = true;
+	protected $_verifyPeer = false;
 
 	protected $_session; 
 	protected $_webpage; 
@@ -84,7 +85,12 @@ define('HAS_ACURL_VERSION',1.1);
 	 public function setUserAgent($userAgent)
 	{ 
 		$this->_useragent = $userAgent; 
-	} 
+	}
+
+	 public function setVerifyPeer($verify = true) {
+		 $this->_verifyPeer = $verify;
+
+	 }
 
 	public function createCurl($url = 'nul') 
 	{ 
@@ -94,6 +100,7 @@ define('HAS_ACURL_VERSION',1.1);
 
 		$s = curl_init(); 
 
+		curl_setopt($s,CURLOPT_SSL_VERIFYPEER,$this->_verifyPeer);
 		curl_setopt($s,CURLOPT_URL,$this->_url); 
 		curl_setopt($s,CURLOPT_HTTPHEADER,$this->_requestHeaders);
 		curl_setopt($s,CURLOPT_TIMEOUT,$this->_timeout); 
