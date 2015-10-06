@@ -1,1 +1,7 @@
 cookie.txt
+
+*.iws
+
+.idea/workspace.xml
+.idea/deployment.xml
+.idea/tasks.xml
